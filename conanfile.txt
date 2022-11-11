@@ -1,0 +1,6 @@
+[requires]
+wavelet_buffer/0.4.0
+
+[generators]
+CMakeDeps
+CMakeToolchain
