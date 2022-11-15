@@ -27,7 +27,7 @@ for k in [0.1, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]:
 result["Wavelet algorithms benchmark 1D"] = {"pywt": b1d}
 
 
-# Benchmark 1D
+# Benchmark 2D
 b2d = {"x": [], "y": []}
 for s in range(200, 2000, 200):
     print(s)
@@ -35,7 +35,7 @@ for s in range(200, 2000, 200):
 
     number = 10
     t = timeit.repeat(
-        "pywt.wavedec2(x, 'db3', level=9)",
+        "pywt.wavedec2(x, 'db3', level=4)",
         setup="import pywt",
         globals={"x": x},
         number=number,
