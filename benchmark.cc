@@ -1,11 +1,11 @@
 // Copyright 2020-2022 PANDA GmbH
 
-#include <wavelet_buffer/wavelet.h>
+#include <wavelet_buffer/denoise_algorithms.h>
 #include <wavelet_buffer/primitives.h>
+#include <wavelet_buffer/wavelet.h>
 #include <wavelet_buffer/wavelet_buffer.h>
 #include <wavelet_buffer/wavelet_parameters.h>
 #include <wavelet_buffer/wavelet_utils.h>
-#include <wavelet_buffer/denoise_algorithms.h>
 
 #include <fstream>
 
@@ -19,10 +19,10 @@ using drift::DataType;
 using drift::Signal1D;
 using drift::SignalN2D;
 using drift::WaveletBuffer;
+using drift::utils::GetRandomSignal;
 using drift::wavelet::DaubechiesMat;
 using drift::wavelet::dbwavf;
 using drift::wavelet::Orthfilt;
-using drift::utils::GetRandomSignal;
 
 TEST_CASE("Wavelet algorithms benchmark 1D") {
   using drift::NullDenoiseAlgorithm;
@@ -31,11 +31,11 @@ TEST_CASE("Wavelet algorithms benchmark 1D") {
 
   const auto length = static_cast<size_t>(k * 48000);
 
-  drift::WaveletParameters parameters = {
-      .signal_shape = {length},
-      .signal_number = 1,
-      .decomposition_steps = 9,
-      .wavelet_type = drift::WaveletTypes::kDB3};
+  drift::WaveletParameters parameters = {.signal_shape = {length},
+                                         .signal_number = 1,
+                                         .decomposition_steps = 9,
+                                         .wavelet_type =
+                                             drift::WaveletTypes::kDB3};
 
   auto data_src = GetRandomSignal(length);
 
@@ -43,7 +43,6 @@ TEST_CASE("Wavelet algorithms benchmark 1D") {
   BENCHMARK("Decompose " + std::to_string(length)) {
     buffer.Decompose(data_src, NullDenoiseAlgorithm<DataType>());
   };
-
 }
 
 TEST_CASE("Wavelet algorithms benchmark 2D") {
@@ -65,7 +64,7 @@ TEST_CASE("Wavelet algorithms benchmark 2D") {
   parameters.wavelet_type = drift::kDB3;
   WaveletBuffer buffer(parameters);
 
-  BENCHMARK("Decompose s") {
+  BENCHMARK("Decompose " + std::to_string(s)) {
     buffer.Decompose(data_src, NullDenoiseAlgorithm<DataType>());
   };
 }

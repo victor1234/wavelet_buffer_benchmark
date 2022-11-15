@@ -16,3 +16,5 @@ cd build
 ../pydwt.py
 ../plot.py wb.xml pywt.json
 ```
+
+![Result](Figure_1.png)

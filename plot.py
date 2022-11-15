@@ -24,24 +24,22 @@ if __name__ == "__main__":
 
     print(test_cases)
 
-
     # Load pywt
     pywt = json.load(open(argv[2]))
     print(pywt)
 
-
     # Merge wb and pywt data
     for name, tc in test_cases.items():
-        tc.update(pywt[n])
-
+        tc.update(pywt[name])
 
     # Plot
     fig, ax = plt.subplots(1, 2)
     i = 0
     for n, tc in test_cases.items():
         ax[i].set_title(n)
-        for nn, plot in tc:
-            ax[i].plot(plot["x"], plot["y"], label=nn)
+        ax[i].set_ylabel("ms")
+        for nn, plot in tc.items():
+            ax[i].plot(plot["x"], plot["y"], ".-", label=nn)
 
         i = i + 1
 
