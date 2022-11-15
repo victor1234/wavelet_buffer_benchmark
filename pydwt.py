@@ -33,7 +33,7 @@ for s in range(200, 2000, 200):
     print(s)
     x = np.random.uniform(-1, 1, s * s).reshape(s, s)
 
-    number = 10
+    number = 100
     t = timeit.repeat(
         "pywt.wavedec2(x, 'db3', level=4)",
         setup="import pywt",
